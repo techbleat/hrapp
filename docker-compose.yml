@@ -1,0 +1,23 @@
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+    depends_on:
+      - api-3
+  api-3:
+     image: shegoj/marcifx:v7.3
+     command: flask run --host=0.0.0.0 --port=5000
+     ports:
+        - 5002:5000
+     environment:
+        - FLASK_APP=app.py
+     depends_on:
+        - cache-server
+
+  cache-server:  
+      image: redis
+      command: redis-server --appendonly yes

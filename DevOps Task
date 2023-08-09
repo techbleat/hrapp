@@ -1,0 +1,14 @@
+EC2 Machine - for NodeJS  [ provisioned via Terraform]  ==A
+EC2 Machine  - for MYSQL  [ provisioned via Terraform]  ==B
+
+Ansible 
+    - to provision Flask on Node A
+    - to provision MYSQLDB on Node B
+
+=======================================================================
+
+Code build and deployement 
+
+1. download code [ developer's code] on target machine = A
+2. run code on target machine 
+
