@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1 style="width: 100%">{% block title %} New Candidate {% endblock %}</h1>
-    <form method="post">
+    <form method="post" action="{{ url_for('user_create') }}">
         <p>
             <label for="firstname">First Name</label>
             <input type="text" name="firstname"

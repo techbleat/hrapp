@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import traceback
 import os
 import datetime
+import boto3
 
 app = Flask(__name__)
 version = "1.7.1"
@@ -23,6 +24,13 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
+client = boto3.client(
+    'ses', 
+    region_name='eu-west-1'
+)
+
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String, unique=True, nullable=False)
@@ -33,14 +41,35 @@ class User(db.Model):
     
 
 with app.app_context():
-    db.drop_all()
     db.create_all()
 
 
 @app.route('/')
 def index():
+    response = client.send_email(
+    Destination={
+        'ToAddresses': ['shegoj@yahoo.com'],
+    },
+    Message={
+        'Body': {
+            'Text': {
+                'Charset': 'UTF-8',
+                'Data': 'email body string',
+            },
+        },
+        'Subject': {
+            'Charset': 'UTF-8',
+            'Data': 'email subject string',
+        },
+    },
+    Source='shegoj@gmail.com',
+    )
     user = User.query.all() 
     return render_template('index.html', user=user, gmt_dt=datetime.datetime.utcnow())
+
+@app.route('/add')
+def add():
+    return render_template('/user/create.html')
 
 @app.route("/user", methods=["GET", "POST"])
 def user_create():
