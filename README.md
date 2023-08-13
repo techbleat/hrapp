@@ -26,7 +26,7 @@ EC2
 
 
 
-#Objectives
+# Objectives
 ===========
 
 Help build and deploy a HR Management Portal into an Organisation Infrastructure
@@ -57,13 +57,13 @@ Help build and deploy a HR Management Portal into an Organisation Infrastructure
 -e AWS_KEY_NAME=xxxx/xxxx/xxx+qlHbY7g
 
 
-##Architecture
+## Architecture
 ============== 
 1. high availability system
 2. Fault Tolerant system
 
 
-##Environment Setup
+## Environment Setup
 ====================
 1. Two or more instances of the application
 2. CICD Pipeline to managment the Environment
